@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comparador de Balizas V16 — DGT 2026</title>
+  <meta name="description" content="Comparativa de balizas V16 homologadas DGT. La más barata de la semana destacada. Enlaces de compra en Amazon." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --accent-1: #0b72b5;
+      --accent-2: #39a9dc;
+      --accent-3: #98ddfd;
+      --accent-gradient: linear-gradient(90deg, #0b72b5, #39a9dc);
+      --accent-gradient-v: linear-gradient(180deg, #0b72b5, #39a9dc);
+      --green: #16a34a;
+      --green-bg: #f0fdf4;
+      --amber: #d97706;
+      --amber-bg: #fffbeb;
+      --red: #dc2626;
+      --red-bg: #fef2f2;
+      --text: #121212;
+      --text-secondary: #4f4f4f;
+      --text-muted: #878787;
+      --border: #d9d9d9;
+      --bg-page: #f0f2f4;
+      --bg-card: #ffffff;
+      --bg-alt: #f7fcff;
+      --bg-hero: linear-gradient(135deg, #f7fcff 0%, #effaff 50%, #e8f7ff 100%);
+      --font-heading: 'Roboto Condensed', Arial, sans-serif;
+      --font-body: 'Roboto', 'Helvetica Neue', Helvetica, 'Segoe UI', Verdana, sans-serif;
+      --shadow-card: 0 1px 6px rgba(0,0,0,.07);
+      --shadow-hero: 0 4px 24px rgba(11,114,181,.12);
+      --radius-sm: 5px;
+      --radius: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      --max-w: 1200px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{font-size:16px;-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+    body{
+      font-family:var(--font-body);
+      color:var(--text);
+      background:var(--bg-page);
+      line-height:1.5;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+    }
+
+    /* ── HEADER ── */
+    .header{
+      background:var(--accent-gradient);
+      color:#fff;
+      text-align:center;
+      padding:2.5rem 1rem 2rem;
+    }
+    .header-icon{font-size:2.4rem;margin-bottom:.25rem}
+    .header h1{
+      font-family:var(--font-heading);
+      font-size:1.75rem;
+      font-weight:700;
+      letter-spacing:-.25px;
+      margin-bottom:.35rem;
+    }
+    .header p{
+      font-size:.95rem;
+      opacity:.85;
+      max-width:500px;
+      margin:0 auto;
+    }
+
+    /* ── MAIN CONTAINER ── */
+    .main{
+      flex:1;
+      max-width:var(--max-w);
+      width:100%;
+      margin:0 auto;
+      padding:1.5rem 1rem 3rem;
+    }
+
+    /* ── HERO ── */
+    .hero{
+      background:var(--bg-card);
+      border:2px solid var(--accent-2);
+      border-radius:var(--radius-xl);
+      box-shadow:var(--shadow-hero);
+      padding:1.75rem;
+      margin-bottom:2rem;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero::before{
+      content:'';
+      position:absolute;
+      top:0;left:0;right:0;
+      height:5px;
+      background:var(--accent-gradient);
+    }
+    .hero-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:.4rem;
+      background:var(--accent-gradient);
+      color:#fff;
+      font-family:var(--font-heading);
+      font-size:.8rem;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.75px;
+      padding:.35rem .85rem;
+      border-radius:100px;
+      margin-bottom:1rem;
+    }
+    .hero-content{
+      display:flex;
+      gap:1.5rem;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .hero-img{
+      width:140px;
+      height:140px;
+      background:var(--bg-alt);
+      border:1px solid var(--border);
+      border-radius:var(--radius-lg);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
+      color:var(--text-muted);
+      font-size:.8rem;
+      text-align:center;
+      line-height:1.3;
+    }
+    .hero-img img{width:100%;height:100%;object-fit:contain;border-radius:var(--radius-lg)}
+    .hero-info{flex:1;min-width:220px}
+    .hero-info h2{
+      font-family:var(--font-heading);
+      font-size:1.5rem;
+      font-weight:700;
+      color:var(--text);
+      margin-bottom:.15rem;
+    }
+    .hero-info .brand{
+      font-size:.9rem;
+      color:var(--text-secondary);
+      margin-bottom:.65rem;
+    }
+    .hero-price{
+      font-family:var(--font-heading);
+      font-size:2.2rem;
+      font-weight:700;
+      color:var(--accent-1);
+      margin-bottom:.4rem;
+    }
+    .hero-specs{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.5rem .75rem;
+      margin-bottom:1rem;
+    }
+    .hero-spec{
+      font-size:.8rem;
+      color:var(--text-secondary);
+      background:var(--bg-alt);
+      padding:.25rem .6rem;
+      border-radius:100px;
+      display:inline-flex;
+      align-items:center;
+      gap:.25rem;
+    }
+    .hero-cta{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      background:var(--accent-gradient);
+      color:#fff;
+      font-family:var(--font-heading);
+      font-size:1rem;
+      font-weight:700;
+      padding:.7rem 1.75rem;
+      border-radius:100px;
+      text-decoration:none;
+      transition:transform .15s,box-shadow .15s;
+      box-shadow:0 2px 12px rgba(11,114,181,.35);
+    }
+    .hero-cta:hover{transform:translateY(-1px);box-shadow:0 4px 18px rgba(11,114,181,.45)}
+
+    /* ── TIE SECTION ── */
+    .tie-row{
+      background:var(--bg-alt);
+      border:1px solid var(--border);
+      border-radius:var(--radius-lg);
+      padding:.85rem 1.25rem;
+      margin-bottom:2rem;
+      display:flex;
+      align-items:center;
+      gap:1rem;
+      flex-wrap:wrap;
+      font-size:.9rem;
+    }
+    .tie-row strong{color:var(--text);font-family:var(--font-heading)}
+    .tie-link{
+      font-family:var(--font-heading);
+      font-size:.8rem;
+      font-weight:600;
+      color:var(--accent-1);
+      text-decoration:none;
+      padding:.3rem .8rem;
+      border:1px solid var(--accent-2);
+      border-radius:100px;
+      transition:background .15s;
+    }
+    .tie-link:hover{background:var(--accent-3)}
+
+    /* ── CONTROLS ── */
+    .controls{
+      display:flex;
+      gap:.5rem;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-bottom:1.25rem;
+    }
+    .controls label{
+      font-size:.8rem;
+      font-weight:600;
+      color:var(--text-secondary);
+      text-transform:uppercase;
+      letter-spacing:.5px;
+    }
+    .pbtn{
+      padding:.35rem .8rem;
+      border:1px solid var(--border);
+      border-radius:100px;
+      font-size:.78rem;
+      font-weight:500;
+      background:#fff;
+      color:var(--text);
+      cursor:pointer;
+      transition:all .15s;
+      font-family:var(--font-body);
+    }
+    .pbtn:hover{border-color:var(--accent-2);background:var(--bg-alt)}
+    .pbtn.active{
+      background:var(--accent-gradient);
+      color:#fff;
+      border-color:transparent;
+    }
+    .pbtn-count{font-size:.7rem;opacity:.7;margin-left:3px}
+
+    /* ── COMPARISON GRID ── */
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:1.25rem;
+    }
+    .card{
+      background:var(--bg-card);
+      border:1px solid var(--border);
+      border-radius:var(--radius-lg);
+      box-shadow:var(--shadow-card);
+      display:flex;
+      flex-direction:column;
+      overflow:hidden;
+      transition:transform .15s,box-shadow .15s;
+    }
+    .card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.1)}
+    .card-header{
+      padding:1.25rem 1.25rem .75rem;
+      border-bottom:1px solid var(--border);
+      display:flex;
+      gap:.75rem;
+      align-items:flex-start;
+    }
+    .card-thumb{
+      width:64px;height:64px;
+      background:var(--bg-alt);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      flex-shrink:0;
+      display:flex;align-items:center;justify-content:center;
+      font-size:.6rem;color:var(--text-muted);text-align:center;line-height:1.2;
+    }
+    .card-thumb img{width:100%;height:100%;object-fit:contain;border-radius:var(--radius)}
+    .card-title-area{flex:1}
+    .card-model{
+      font-family:var(--font-heading);
+      font-size:1rem;
+      font-weight:700;
+      line-height:1.2;
+      margin-bottom:.15rem;
+    }
+    .card-brand{font-size:.75rem;color:var(--text-muted)}
+    .card-price-row{
+      display:flex;
+      align-items:baseline;
+      gap:.5rem;
+      margin-top:.35rem;
+    }
+    .card-price{
+      font-family:var(--font-heading);
+      font-size:1.25rem;
+      font-weight:700;
+      color:var(--accent-1);
+    }
+    .card-old-price{font-size:.75rem;color:var(--text-muted);text-decoration:line-through}
+    .card-body{padding:.75rem 1.25rem;flex:1}
+    .spec-list{list-style:none;display:flex;flex-direction:column;gap:.45rem}
+    .spec-list li{
+      font-size:.8rem;
+      display:flex;
+      align-items:center;
+      gap:.4rem;
+      color:var(--text-secondary);
+    }
+    .spec-label{color:var(--text-muted);min-width:75px;flex-shrink:0}
+    .spec-value{font-weight:500;color:var(--text)}
+    .badge{
+      font-size:.7rem;
+      font-weight:600;
+      padding:.15rem .45rem;
+      border-radius:100px;
+    }
+    .badge-ok{background:var(--green-bg);color:var(--green)}
+    .badge-warn{background:var(--amber-bg);color:var(--amber)}
+    .badge-info{background:var(--bg-alt);color:var(--accent-1)}
+
+    /* ── CARD FOOTER ── */
+    .card-footer{
+      padding:.75rem 1.25rem;
+      border-top:1px solid var(--border);
+      display:flex;
+      flex-direction:column;
+      gap:.5rem;
+    }
+    .card-stars{
+      font-size:.8rem;
+      color:var(--amber);
+      display:flex;align-items:center;gap:.3rem;
+    }
+    .card-stars .reviews{color:var(--text-muted);font-size:.72rem}
+    .btn-buy{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.4rem;
+      font-family:var(--font-heading);
+      font-size:.85rem;
+      font-weight:700;
+      color:#fff;
+      background:var(--accent-gradient);
+      padding:.55rem 1rem;
+      border-radius:100px;
+      text-decoration:none;
+      transition:transform .15s,box-shadow .15s;
+    }
+    .btn-buy:hover{transform:translateY(-1px);box-shadow:0 2px 10px rgba(11,114,181,.3)}
+
+    /* ── EXPANDABLE TECH SHEET ── */
+    .card-toggle{
+      font-size:.72rem;
+      font-weight:500;
+      color:var(--accent-1);
+      background:none;
+      border:none;
+      cursor:pointer;
+      padding:.4rem 0 0;
+      display:inline-flex;
+      align-items:center;
+      gap:.25rem;
+      font-family:var(--font-body);
+    }
+    .card-toggle:hover{color:var(--accent-2)}
+    .card-details{
+      display:none;
+      padding-top:.65rem;
+      border-top:1px dashed var(--border);
+      margin-top:.5rem;
+    }
+    .card-details.open{display:block}
+    .card-details .spec-list li{font-size:.75rem}
+    .card-details .spec-label{min-width:85px}
+
+    /* ── SUMMARY TABLE (desktop wide view) ── */
+    .summary-section{margin-top:2.5rem}
+    .summary-section h3{
+      font-family:var(--font-heading);
+      font-size:1.15rem;
+      font-weight:700;
+      margin-bottom:1rem;
+      color:var(--text);
+    }
+    .table-wrap{
+      overflow-x:auto;
+      background:var(--bg-card);
+      border:1px solid var(--border);
+      border-radius:var(--radius-lg);
+      box-shadow:var(--shadow-card);
+    }
+    .table-wrap table{
+      width:100%;
+      border-collapse:collapse;
+      font-size:.82rem;
+      min-width:750px;
+    }
+    .table-wrap th{
+      background:var(--accent-gradient);
+      color:#fff;
+      font-family:var(--font-heading);
+      font-weight:600;
+      font-size:.75rem;
+      text-transform:uppercase;
+      letter-spacing:.5px;
+      padding:.6rem .75rem;
+      text-align:left;
+      white-space:nowrap;
+    }
+    .table-wrap th:first-child{border-radius:var(--radius-lg) 0 0 0}
+    .table-wrap th:last-child{border-radius:0 var(--radius-lg) 0 0}
+    .table-wrap td{
+      padding:.55rem .75rem;
+      border-bottom:1px solid var(--border);
+      vertical-align:top;
+    }
+    .table-wrap tr:last-child td{border-bottom:none}
+    .table-wrap tr:hover td{background:var(--bg-alt)}
+    .table-wrap .t-model{font-weight:700;font-size:.82rem}
+    .table-wrap .t-brand{font-size:.7rem;color:var(--text-muted)}
+    .table-wrap .t-price{font-family:var(--font-heading);font-weight:700;color:var(--accent-1)}
+
+    /* ── FOOTER ── */
+    .footer{
+      text-align:center;
+      padding:1.5rem 1rem;
+      font-size:.72rem;
+      color:var(--text-muted);
+      border-top:1px solid var(--border);
+      max-width:var(--max-w);
+      width:100%;
+      margin:0 auto;
+    }
+    .footer a{color:var(--accent-1);text-decoration:none}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:768px){
+      .header h1{font-size:1.35rem}
+      .header{padding:1.75rem 1rem 1.5rem}
+      .hero{padding:1.25rem}
+      .hero-content{flex-direction:column;text-align:center}
+      .hero-info h2{font-size:1.2rem}
+      .hero-price{font-size:1.75rem}
+      .hero-specs{justify-content:center}
+      .grid{grid-template-columns:1fr}
+      .main{padding:1rem .75rem 2rem}
+    }
+    @media(max-width:480px){
+      .controls{flex-direction:column;align-items:flex-start}
+      .header h1{font-size:1.15rem}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════ HEADER ═══════════ -->
+  <header class="header">
+    <div class="header-icon">🚨</div>
+    <h1>Comparador de Balizas V16</h1>
+    <p>Comparativa actualizada de luces de emergencia V16 homologadas por la DGT. La más barata de la semana, siempre en primer plano.</p>
+  </header>
+
+  <!-- ═══════════ MAIN ═══════════ -->
+  <main class="main" id="app"></main>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer class="footer">
+    <p>En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables.</p>
+    <p style="margin-top:.3rem">Los precios pueden variar. Última actualización desde la hoja de datos del proyecto.</p>
+  </footer>
+
+  <script>
+    /* ═══════════ DATA ═══════════
+       Source: Google Sheets
+       Update: edit this array to sync with sheet
+    ═══════════════════════════════ */
+    const BEACONS = [
+      {
+        id: "pf-led-one",
+        modelo: "PF LED ONE V16",
+        marca: "PF ERUM VIAL",
+        link: "https://amzn.to/3YNIWRI",
+        precio: 29.99,
+        precioTachado: null,
+        luminosidadDeclarada: "250 candelas (120 efectivas)",
+        luminosidadTest: "",
+        tipoPila: "Pila 9V",
+        duracionBateria: "2 horas",
+        operador: "Vodafone",
+        ledsEstado: false,
+        ledsEstadoDetalle: "",
+        estanqueidad: "IP54",
+        rangoTemperatura: "-40°C to +75°C",
+        tecnologia: "NB-IoT",
+        anioFinDatos: 2038,
+        alturaLeds: "7,5 cm",
+        homologacion: "LCOE 2023010084G1",
+        homologacionTipo: "LCOE",
+        moduloGNSS: "Quectel LC76FAAMD",
+        antenaGNSS: "Ignion",
+        moduloNAD: "Quectel BC65PB-04-STD",
+        antena5G: "Ignion NN02-224",
+        bandas: "B1/3/5/8/20/28",
+        notas: "",
+        rating: 4.4,
+        reviews: 1347,
+        imagen: ""
+      },
+      {
+        id: "iot-v4",
+        modelo: "IoT V4",
+        marca: "HELP FLASH IoT +",
+        link: "https://amzn.to/4qsfAoj",
+        precio: 34.99,
+        precioTachado: null,
+        luminosidadDeclarada: "290 candelas (>40 efectivas)",
+        luminosidadTest: "",
+        tipoPila: "Pila 9V",
+        duracionBateria: "2,5 horas",
+        operador: "Movistar o Vodafone",
+        ledsEstado: false,
+        ledsEstadoDetalle: "",
+        estanqueidad: "IP54",
+        rangoTemperatura: "",
+        tecnologia: "NB-IoT",
+        anioFinDatos: 2038,
+        alturaLeds: "3,5 cm",
+        homologacion: "LCOE 2024070742G1",
+        homologacionTipo: "LCOE",
+        moduloGNSS: "",
+        antenaGNSS: "",
+        moduloNAD: "",
+        antena5G: "Ignion ONE mXTEND",
+        bandas: "",
+        notas: "Datos pendientes de confirmar. Ver ficha del fabricante.",
+        rating: 4.2,
+        reviews: 890,
+        imagen: ""
+      },
+      {
+        id: "osram-ledguardian",
+        modelo: "OSRAM LEDguardian",
+        marca: "Osram",
+        link: "https://amzn.to/4qXvp60",
+        precio: 29.99,
+        precioTachado: null,
+        luminosidadDeclarada: "140 lumen",
+        luminosidadTest: "83,2 Cd",
+        tipoPila: "Pila 9V",
+        duracionBateria: "2,5 horas",
+        operador: "Movistar",
+        ledsEstado: "Solo batería",
+        ledsEstadoDetalle: "Indicador de batería únicamente",
+        estanqueidad: "IP54",
+        rangoTemperatura: "-40°C to +85°C",
+        tecnologia: "LTE Cat NB2",
+        anioFinDatos: 2038,
+        alturaLeds: "3,5 cm",
+        homologacion: "IDIADA PC25050113",
+        homologacionTipo: "IDIADA",
+        moduloGNSS: "Quectel BC680Z",
+        antenaGNSS: "",
+        moduloNAD: "Quectel BC680Z",
+        antena5G: "",
+        bandas: "B3, 5, 8, 20, 28",
+        notas: "",
+        rating: 4.4,
+        reviews: 1636,
+        imagen: ""
+      },
+      {
+        id: "v16eurolight",
+        modelo: "V16eurolight",
+        marca: "Eurolight",
+        link: "https://amzn.to/3YJJpEA",
+        precio: 39.85,
+        precioTachado: null,
+        luminosidadDeclarada: "Desconocido",
+        luminosidadTest: "",
+        tipoPila: "4 Pilas AA",
+        duracionBateria: "2,5 horas",
+        operador: "Orange",
+        ledsEstado: false,
+        ledsEstadoDetalle: "",
+        estanqueidad: "",
+        rangoTemperatura: "",
+        tecnologia: "NB-IoT",
+        anioFinDatos: 2038,
+        alturaLeds: "3,5 cm",
+        homologacion: "IDIADA PC25060037",
+        homologacionTipo: "IDIADA",
+        moduloGNSS: "",
+        antenaGNSS: "",
+        moduloNAD: "",
+        antena5G: "",
+        bandas: "",
+        notas: "",
+        rating: 3.9,
+        reviews: 320,
+        imagen: ""
+      },
+      {
+        id: "hv16-1",
+        modelo: "HV16.1",
+        marca: "Hella",
+        link: "https://amzn.to/3NwK1Le",
+        precio: 49.95,
+        precioTachado: null,
+        luminosidadDeclarada: "Desconocido",
+        luminosidadTest: "",
+        tipoPila: "Pila 9V",
+        duracionBateria: "2 horas",
+        operador: "Vodafone",
+        ledsEstado: false,
+        ledsEstadoDetalle: "",
+        estanqueidad: "",
+        rangoTemperatura: "",
+        tecnologia: "Desconocido",
+        anioFinDatos: "12/2037",
+        alturaLeds: "2,5 cm",
+        homologacion: "LCOE 2023070693G1",
+        homologacionTipo: "LCOE",
+        moduloGNSS: "",
+        antenaGNSS: "",
+        moduloNAD: "",
+        antena5G: "",
+        bandas: "",
+        notas: "",
+        rating: 4.0,
+        reviews: 180,
+        imagen: ""
+      },
+      {
+        id: "safety-light-pro",
+        modelo: "Safety Light Pro",
+        marca: "ISSE",
+        link: "https://amzn.to/3LFKUAv",
+        precio: 34.05,
+        precioTachado: null,
+        luminosidadDeclarada: "Desconocido",
+        luminosidadTest: "",
+        tipoPila: "3 Pilas AA",
+        duracionBateria: "2 horas",
+        operador: "Movistar",
+        ledsEstado: "3 leds: Batería/GNSS/Conexión DGT",
+        ledsEstadoDetalle: "Tres leds para conocer el estado de Batería, GNSS y conexión DGT",
+        estanqueidad: "IP54",
+        rangoTemperatura: "",
+        tecnologia: "NB-IoT",
+        anioFinDatos: 2038,
+        alturaLeds: "2,5 cm",
+        homologacion: "IDIADA PC25050253",
+        homologacionTipo: "IDIADA",
+        moduloGNSS: "",
+        antenaGNSS: "",
+        moduloNAD: "",
+        antena5G: "",
+        bandas: "",
+        notas: "Empresa china. Tres leds para conocer el estado de Batería, GNSS y conexión DGT.",
+        rating: 4.1,
+        reviews: 450,
+        imagen: ""
+      }
+    ];
+
+    /* ═══════════ LOGIC ═══════════ */
+    (function(){
+      const app = document.getElementById('app');
+      let activeFilter = 'all';
+
+      /* Sorted by price ascending */
+      const sorted = [...BEACONS].sort((a,b) => a.precio - b.precio);
+      const cheapest = sorted[0];
+      const ties = sorted.filter(b => b.precio === cheapest.precio && b.id !== cheapest.id);
+
+      function fmtPrice(p){return p.toFixed(2).replace('.',',')+' €'}
+      function starStr(r){const s=Math.round(r);return '★'.repeat(s)+'☆'.repeat(5-s)}
+      function hasVal(v){return v && v.toString().trim()!==''}
+
+      function renderHero(){
+        let tieHtml = '';
+        if(ties.length){
+          tieHtml = '<div class="tie-row">🥈 <strong>Mismo precio:</strong> '+
+            ties.map(t => `<span>${t.modelo} (${t.marca}) <a href="${t.link}" target="_blank" rel="nofollow sponsored" class="tie-link">Ver en Amazon →</a></span>`).join('&nbsp;&nbsp;')+
+            '</div>';
+        }
+
+        const imgHtml = cheapest.imagen
+          ? `<img src="${cheapest.imagen}" alt="${cheapest.modelo}" loading="lazy" />`
+          : `<span>${cheapest.marca}<br>sin imagen</span>`;
+
+        return `
+          <section class="hero">
+            <div class="hero-badge">🏆 La más barata de la semana</div>
+            <div class="hero-content">
+              <div class="hero-img">${imgHtml}</div>
+              <div class="hero-info">
+                <h2>${cheapest.modelo}</h2>
+                <div class="brand">${cheapest.marca}</div>
+                <div class="hero-price">${fmtPrice(cheapest.precio)}</div>
+                <div class="hero-specs">
+                  <span class="hero-spec">✅ ${cheapest.homologacionTipo}</span>
+                  <span class="hero-spec">📡 ${cheapest.tecnologia}</span>
+                  <span class="hero-spec">🔋 ${cheapest.duracionBateria}</span>
+                  <span class="hero-spec">📱 ${cheapest.operador}</span>
+                  ${cheapest.estanqueidad ? `<span class="hero-spec">💧 ${cheapest.estanqueidad}</span>`:''}
+                  <span class="hero-spec">⭐ ${cheapest.rating}/5 (${cheapest.reviews})</span>
+                </div>
+                <a href="${cheapest.link}" target="_blank" rel="nofollow sponsored" class="hero-cta">🛒 COMPRAR EN AMAZON →</a>
+              </div>
+            </div>
+          </section>
+          ${tieHtml}
+        `;
+      }
+
+      function renderControls(beacons){
+        const countAll = BEACONS.length;
+        const countCheap = BEACONS.filter(b=>b.precio<30).length;
+        const countMid = BEACONS.filter(b=>b.precio>=30 && b.precio<=40).length;
+        const countHi = BEACONS.filter(b=>b.precio>40).length;
+        return `
+          <div class="controls">
+            <label>Filtrar:</label>
+            <button class="pbtn ${activeFilter==='all'?'active':''}" data-filter="all">Todas <span class="pbtn-count">${countAll}</span></button>
+            <button class="pbtn ${activeFilter==='cheap'?'active':''}" data-filter="cheap"><30€ <span class="pbtn-count">${countCheap}</span></button>
+            <button class="pbtn ${activeFilter==='mid'?'active':''}" data-filter="mid">30–40€ <span class="pbtn-count">${countMid}</span></button>
+            <button class="pbtn ${activeFilter==='hi'?'active':''}" data-filter="hi">>40€ <span class="pbtn-count">${countHi}</span></button>
+          </div>
+        `;
+      }
+
+      function renderCard(b){
+        const starsHtml = b.rating
+          ? `<div class="card-stars">${starStr(b.rating)} <span class="reviews">${b.rating} / 5 · ${b.reviews} reseñas</span></div>`
+          : '';
+
+        const imgHtml = b.imagen
+          ? `<img src="${b.imagen}" alt="${b.modelo}" loading="lazy" />`
+          : `<span>${b.marca}</span>`;
+
+        const details = [];
+        if(hasVal(b.luminosidadDeclarada)) details.push(`<li><span class="spec-label">Luminosidad</span><span class="spec-value">${b.luminosidadDeclarada}</span></li>`);
+        if(hasVal(b.luminosidadTest)) details.push(`<li><span class="spec-label">Test 30min</span><span class="spec-value">${b.luminosidadTest}</span></li>`);
+        if(hasVal(b.moduloGNSS)) details.push(`<li><span class="spec-label">Módulo GNSS</span><span class="spec-value">${b.moduloGNSS}</span></li>`);
+        if(hasVal(b.antenaGNSS)) details.push(`<li><span class="spec-label">Antena GNSS</span><span class="spec-value">${b.antenaGNSS}</span></li>`);
+        if(hasVal(b.moduloNAD)) details.push(`<li><span class="spec-label">Módulo NAD</span><span class="spec-value">${b.moduloNAD}</span></li>`);
+        if(hasVal(b.antena5G)) details.push(`<li><span class="spec-label">Antena 5G</span><span class="spec-value">${b.antena5G}</span></li>`);
+        if(hasVal(b.bandas)) details.push(`<li><span class="spec-label">Bandas</span><span class="spec-value">${b.bandas}</span></li>`);
+        if(hasVal(b.rangoTemperatura)) details.push(`<li><span class="spec-label">Temperatura</span><span class="spec-value">${b.rangoTemperatura}</span></li>`);
+        if(hasVal(b.alturaLeds)) details.push(`<li><span class="spec-label">Altura LEDs</span><span class="spec-value">${b.alturaLeds}</span></li>`);
+        if(hasVal(b.anioFinDatos)) details.push(`<li><span class="spec-label">Datos hasta</span><span class="spec-value">${b.anioFinDatos}</span></li>`);
+        if(hasVal(b.notas)) details.push(`<li><span class="spec-label">Notas</span><span class="spec-value">${b.notas}</span></li>`);
+
+        const detailsHtml = details.length
+          ? `<button class="card-toggle" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'🔽 Ocultar ficha técnica':'🔍 Ver ficha técnica'">🔍 Ver ficha técnica</button>
+             <div class="card-details"><ul class="spec-list">${details.join('')}</ul></div>`
+          : '';
+
+        return `
+          <div class="card" data-price="${b.precio}">
+            <div class="card-header">
+              <div class="card-thumb">${imgHtml}</div>
+              <div class="card-title-area">
+                <div class="card-model">${b.modelo}</div>
+                <div class="card-brand">${b.marca}</div>
+                <div class="card-price-row">
+                  <span class="card-price">${fmtPrice(b.precio)}</span>
+                  ${b.precioTachado ? `<span class="card-old-price">${fmtPrice(b.precioTachado)}</span>` : ''}
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <ul class="spec-list">
+                <li><span class="spec-label">Homologación</span><span class="badge badge-ok">✅ ${b.homologacionTipo}</span></li>
+                <li><span class="spec-label">Tecnología</span><span class="spec-value">${b.tecnologia}</span></li>
+                <li><span class="spec-label">Batería</span><span class="spec-value">${b.duracionBateria} · ${b.tipoPila}</span></li>
+                <li><span class="spec-label">Operador</span><span class="spec-value">${b.operador}</span></li>
+                <li><span class="spec-label">LEDs estado</span><span class="spec-value">${b.ledsEstado ? b.ledsEstado : '❌ No'}</span></li>
+                ${b.estanqueidad ? `<li><span class="spec-label">Estanqueidad</span><span class="spec-value">${b.estanqueidad}</span></li>` : ''}
+              </ul>
+              ${detailsHtml}
+            </div>
+            <div class="card-footer">
+              ${starsHtml}
+              <a href="${b.link}" target="_blank" rel="nofollow sponsored" class="btn-buy">🛒 Ver en Amazon</a>
+            </div>
+          </div>
+        `;
+      }
+
+      function renderSummaryTable(beacons){
+        return `
+          <div class="summary-section">
+            <h3>📊 Tabla comparativa completa</h3>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Modelo</th>
+                    <th>Precio</th>
+                    <th>Homologación</th>
+                    <th>Tecnología</th>
+                    <th>Batería</th>
+                    <th>Pilas</th>
+                    <th>Operador</th>
+                    <th>LEDs</th>
+                    <th>IP</th>
+                    <th>GNSS</th>
+                    <th>Valoración</th>
+                    <th>Comprar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${beacons.map(b => `
+                    <tr>
+                      <td><div class="t-model">${b.modelo}</div><div class="t-brand">${b.marca}</div></td>
+                      <td class="t-price">${fmtPrice(b.precio)}</td>
+                      <td>${hasVal(b.homologacion) ? b.homologacion : '-'}</td>
+                      <td>${b.tecnologia}</td>
+                      <td>${b.duracionBateria}</td>
+                      <td>${b.tipoPila}</td>
+                      <td>${b.operador}</td>
+                      <td>${b.ledsEstado || 'No'}</td>
+                      <td>${b.estanqueidad || '-'}</td>
+                      <td>${b.moduloGNSS || '-'}</td>
+                      <td>⭐ ${b.rating}/5</td>
+                      <td><a href="${b.link}" target="_blank" rel="nofollow sponsored" class="pbtn" style="font-size:.7rem;text-decoration:none">Amazon →</a></td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      }
+
+      function filterBeacons(){
+        if(activeFilter==='all') return [...BEACONS].sort((a,b)=>a.precio-b.precio);
+        if(activeFilter==='cheap') return BEACONS.filter(b=>b.precio<30).sort((a,b)=>a.precio-b.precio);
+        if(activeFilter==='mid') return BEACONS.filter(b=>b.precio>=30&&b.precio<=40).sort((a,b)=>a.precio-b.precio);
+        if(activeFilter==='hi') return BEACONS.filter(b=>b.precio>40).sort((a,b)=>a.precio-b.precio);
+        return BEACONS;
+      }
+
+      function render(){
+        const filtered = filterBeacons();
+        const cards = filtered.map(renderCard).join('');
+        app.innerHTML = `
+          ${renderHero()}
+          ${renderControls(filtered)}
+          <div class="grid">${cards}</div>
+          ${renderSummaryTable(filtered)}
+        `;
+
+        /* bind filter buttons */
+        app.querySelectorAll('.pbtn[data-filter]').forEach(btn => {
+          btn.addEventListener('click', function(){
+            activeFilter = this.dataset.filter;
+            render();
+            window.scrollTo({top: app.querySelector('.controls').offsetTop-20, behavior:'smooth'});
+          });
+        });
+      }
+
+      render();
+    })();
+  </script>
+</body>
+</html>
