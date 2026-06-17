@@ -546,7 +546,7 @@
   <footer class="footer">
     <p>En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables.</p>
     <p style="margin-top:.3rem">Los precios pueden variar. Última actualización: <time datetime="2026-06-17">17 de junio de 2026</time>.</p>
-    <p style="margin-top:.8rem;font-size:.8rem;opacity:.7">Creado por <a href="https://github.com/insidebits/comparadorbalizasv16" target="_blank" rel="noopener">insidebits</a></p>
+    <p style="margin-top:.8rem;font-size:.8rem;opacity:.7">Creado por <a href="https://github.com/insidebits/comparadorbalizav16" target="_blank" rel="noopener">insidebits</a></p>
   </footer>
 
   <script>
@@ -560,6 +560,7 @@
         modelo: "PF LED ONE V16",
         marca: "PF ERUM VIAL",
         link: "https://amzn.to/3YNIWRI",
+        asin: "B0CR9JC98B",
         precio: 29.90,
         precioTachado: null,
         luminosidadDeclarada: "250 candelas (120 efectivas)",
@@ -591,6 +592,7 @@
         modelo: "IoT V4",
         marca: "HELP FLASH IoT +",
         link: "https://amzn.to/4qsfAoj",
+        asin: "B0FHBDDBNT",
         precio: 26.95,
         precioTachado: 29.95,
         luminosidadDeclarada: "290 candelas (>40 efectivas)",
@@ -622,6 +624,7 @@
         modelo: "OSRAM LEDguardian",
         marca: "Osram",
         link: "https://amzn.to/4qXvp60",
+        asin: "B0DNFBS3NN",
         precio: 24.70,
         precioTachado: 57.94,
         luminosidadDeclarada: "140 lumen",
@@ -653,6 +656,7 @@
         modelo: "EXTRASTAR",
         marca: "HIBRON",
         link: "https://amzn.to/4ewRMuE",
+        asin: "B0FH6VVHBL",
         precio: 15.95,
         precioTachado: null,
         luminosidadDeclarada: "Desconocido",
@@ -684,6 +688,7 @@
         modelo: "HV16.1",
         marca: "Hella",
         link: "https://amzn.to/3NwK1Le",
+        asin: "B0CVXCXX61",
         precio: 40.03,
         precioTachado: null,
         luminosidadDeclarada: "Desconocido",
@@ -715,6 +720,7 @@
         modelo: "Safety Light Pro",
         marca: "ISSE",
         link: "https://amzn.to/3LFKUAv",
+        asin: "B0FDBBXHDY",
         precio: 27.05,
         precioTachado: 33.80,
         luminosidadDeclarada: "Desconocido",
@@ -742,9 +748,36 @@
         imagen: "https://m.media-amazon.com/images/I/71A+Sqzrw0L._AC_SL1500_.jpg"
       }
     ];
-    (function(){
+    (async function(){
       const app = document.getElementById('app');
       let activeFilter = 'all';
+
+      /* ── Fetch live prices from prices.json ── */
+      try {
+        const resp = await fetch('prices.json');
+        if(resp.ok){
+          const data = await resp.json();
+          if(data.products){
+            BEACONS.forEach(b => {
+              const live = data.products[b.id];
+              if(live){
+                if(typeof live.precio === 'number') b.precio = live.precio;
+                if(live.precioTachado !== undefined) b.precioTachado = live.precioTachado;
+                if(typeof live.rating === 'number') b.rating = live.rating;
+                if(typeof live.reviews === 'number') b.reviews = live.reviews;
+              }
+            });
+          }
+          if(data.updated){
+            const timeEl = document.querySelector('footer time');
+            if(timeEl){
+              const d = new Date(data.updated);
+              timeEl.setAttribute('datetime', data.updated);
+              timeEl.textContent = d.toLocaleDateString('es-ES',{day:'numeric',month:'long',year:'numeric'});
+            }
+          }
+        }
+      } catch(e){ /* fallback to hardcoded prices */ }
 
       /* Sorted by price ascending */
       const sorted = [...BEACONS].sort((a,b) => a.precio - b.precio);
