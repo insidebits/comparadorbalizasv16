@@ -3,8 +3,37 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Comparador de Balizas V16 — DGT 2026</title>
-  <meta name="description" content="Comparativa de balizas V16 homologadas DGT. La más barata de la semana destacada. Enlaces de compra en Amazon." />
+  <title>Comparador de Balizas V16 — Mejores precios y comparativa DGT 2026</title>
+  <meta name="description" content="Comparativa completa de balizas V16 homologadas por la DGT. Precios actualizados, especificaciones técnicas, valoraciones y enlaces de compra en Amazon. Encuentra la baliza conectada más barata." />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+  <meta name="author" content="insidebits" />
+  <meta name="theme-color" content="#0b72b5" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://comparadorbalizav16.es/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Comparador de Balizas V16" />
+  <meta property="og:locale" content="es_ES" />
+  <meta property="og:title" content="Comparador de Balizas V16 — Mejores precios y comparativa DGT 2026" />
+  <meta property="og:description" content="Comparativa completa de balizas V16 homologadas por la DGT. Precios actualizados, especificaciones y enlaces de compra en Amazon." />
+  <meta property="og:url" content="https://comparadorbalizav16.es/" />
+  <meta property="og:image" content="https://m.media-amazon.com/images/I/71m166f2fJL._AC_SL1500_.jpg" />
+  <meta property="og:image:width" content="1500" />
+  <meta property="og:image:height" content="1500" />
+  <meta property="og:image:alt" content="Comparador de Balizas V16 — Baliza PF LED ONE V16" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Comparador de Balizas V16 — Mejores precios DGT 2026" />
+  <meta name="twitter:description" content="Comparativa de balizas V16 homologadas. Precios, especificaciones y enlaces de compra en Amazon." />
+  <meta name="twitter:image" content="https://m.media-amazon.com/images/I/71m166f2fJL._AC_SL1500_.jpg" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b72b5'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-size='38' font-family='Arial,sans-serif' font-weight='bold' fill='white'%3EV16%3C/text%3E%3C/svg%3E" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='36' fill='%230b72b5'/%3E%3Ctext x='90' y='125' text-anchor='middle' font-size='100' font-family='Arial,sans-serif' font-weight='bold' fill='white'%3EV16%3C/text%3E%3C/svg%3E" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -53,24 +82,42 @@
 
     /* ── HEADER ── */
     .header{
-      background:var(--accent-gradient);
+      background:linear-gradient(135deg, #0a1628 0%, #0d2b52 50%, #0b72b5 100%);
       color:#fff;
       text-align:center;
-      padding:2.5rem 1rem 2rem;
+      padding:3rem 1rem 2.5rem;
+      position:relative;
+      overflow:hidden;
     }
-    .header-icon{font-size:2.4rem;margin-bottom:.25rem}
+    .header::before{
+      content:'';
+      position:absolute;
+      top:0;left:0;right:0;bottom:0;
+      background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity:0.5;
+    }
+    .header-inner{position:relative;z-index:1}
     .header h1{
       font-family:var(--font-heading);
-      font-size:1.75rem;
+      font-size:2rem;
       font-weight:700;
-      letter-spacing:-.25px;
-      margin-bottom:.35rem;
+      letter-spacing:-.5px;
+      margin-bottom:.5rem;
+      text-shadow:0 2px 8px rgba(0,0,0,.2);
     }
+    .header h1 span{color:var(--accent-3)}
     .header p{
       font-size:.95rem;
-      opacity:.85;
-      max-width:500px;
+      opacity:.8;
+      max-width:520px;
       margin:0 auto;
+      font-weight:400;
+    }
+    .header-bar{
+      position:absolute;
+      bottom:0;left:0;right:0;
+      height:4px;
+      background:var(--accent-gradient);
     }
 
     /* ── MAIN CONTAINER ── */
@@ -459,7 +506,7 @@
     }
     @media(max-width:480px){
       .controls{flex-direction:column;align-items:flex-start}
-      .header h1{font-size:1.15rem}
+      .header h1{font-size:1.25rem}
     }
   </style>
 </head>
@@ -467,18 +514,39 @@
 
   <!-- ═══════════ HEADER ═══════════ -->
   <header class="header">
-    <div class="header-icon">🚨</div>
-    <h1>Comparador de Balizas V16</h1>
-    <p>Comparativa actualizada de luces de emergencia V16 homologadas por la DGT. La más barata de la semana, siempre en primer plano.</p>
+    <div class="header-inner">
+      <h1>Comparador de <span>Balizas V16</span></h1>
+      <p>Comparativa actualizada de luces de emergencia homologadas por la DGT. Encuentra el mejor precio entre todos los modelos certificados.</p>
+    </div>
+    <div class="header-bar"></div>
   </header>
 
   <!-- ═══════════ MAIN ═══════════ -->
   <main class="main" id="app"></main>
 
+  <!-- ═══════════ NOSCRIPT FALLBACK ═══════════ -->
+  <noscript>
+    <main class="main">
+      <section style="background:#fff;border:2px solid #39a9dc;border-radius:12px;padding:1.5rem;margin-bottom:1.5rem">
+        <h2 style="font-family:'Roboto Condensed',Arial,sans-serif;color:#0b72b5;margin-bottom:.5rem">Balizas V16 homologadas DGT</h2>
+        <p>Comparativa de luces de emergencia V16 con precios actualizados y enlaces de compra en Amazon.</p>
+        <ul style="list-style:none;padding:0;margin-top:1rem">
+          <li style="padding:.5rem 0;border-bottom:1px solid #eee"><strong>PF LED ONE V16</strong> (PF ERUM VIAL) — 29,90 € · <a href="https://amzn.to/3YNIWRI" rel="nofollow sponsored">Amazon</a></li>
+          <li style="padding:.5rem 0;border-bottom:1px solid #eee"><strong>IoT V4</strong> (HELP FLASH IoT +) — 26,95 € · <a href="https://amzn.to/4qsfAoj" rel="nofollow sponsored">Amazon</a></li>
+          <li style="padding:.5rem 0;border-bottom:1px solid #eee"><strong>OSRAM LEDguardian</strong> (Osram) — 24,70 € · <a href="https://amzn.to/4qXvp60" rel="nofollow sponsored">Amazon</a></li>
+          <li style="padding:.5rem 0;border-bottom:1px solid #eee"><strong>EXTRASTAR</strong> (HIBRON) — 15,95 € · <a href="https://amzn.to/4ewRMuE" rel="nofollow sponsored">Amazon</a></li>
+          <li style="padding:.5rem 0;border-bottom:1px solid #eee"><strong>HV16.1</strong> (Hella) — 40,03 € · <a href="https://amzn.to/3NwK1Le" rel="nofollow sponsored">Amazon</a></li>
+          <li style="padding:.5rem 0"><strong>Safety Light Pro</strong> (ISSE) — 27,05 € · <a href="https://amzn.to/3LFKUAv" rel="nofollow sponsored">Amazon</a></li>
+        </ul>
+      </section>
+    </main>
+  </noscript>
+
   <!-- ═══════════ FOOTER ═══════════ -->
   <footer class="footer">
     <p>En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables.</p>
-    <p style="margin-top:.3rem">Los precios pueden variar. Última actualización desde la hoja de datos del proyecto.</p>
+    <p style="margin-top:.3rem">Los precios pueden variar. Última actualización: <time datetime="2026-06-17">17 de junio de 2026</time>.</p>
+    <p style="margin-top:.8rem;font-size:.8rem;opacity:.7">Creado por <a href="https://github.com/insidebits/comparadorbalizasv16" target="_blank" rel="noopener">insidebits</a></p>
   </footer>
 
   <script>
@@ -516,7 +584,7 @@
         notas: "",
         rating: 4.4,
         reviews: 1347,
-        imagen: ""
+        imagen: "https://m.media-amazon.com/images/I/71m166f2fJL._AC_SL1500_.jpg"
       },
       {
         id: "iot-v4",
@@ -547,14 +615,14 @@
         notas: "Datos pendientes de confirmar. Ver ficha del fabricante.",
         rating: 4.4,
         reviews: 3366,
-        imagen: ""
+        imagen: "https://m.media-amazon.com/images/I/71YjLgUqWDL._AC_SL1500_.jpg"
       },
       {
         id: "osram-ledguardian",
         modelo: "OSRAM LEDguardian",
         marca: "Osram",
         link: "https://amzn.to/4qXvp60",
-        precio: 24.55,
+        precio: 24.70,
         precioTachado: 57.94,
         luminosidadDeclarada: "140 lumen",
         luminosidadTest: "83,2 Cd",
@@ -578,38 +646,38 @@
         notas: "",
         rating: 4.4,
         reviews: 1636,
-        imagen: ""
+        imagen: "https://m.media-amazon.com/images/I/616PCTCvXQL._AC_SL1500_.jpg"
       },
       {
-        id: "v16eurolight",
-        modelo: "V16eurolight",
-        marca: "Eurolight",
-        link: "https://amzn.to/3YJJpEA",
-        precio: 39.85,
+        id: "extrastar",
+        modelo: "EXTRASTAR",
+        marca: "HIBRON",
+        link: "https://amzn.to/4ewRMuE",
+        precio: 15.95,
         precioTachado: null,
         luminosidadDeclarada: "Desconocido",
         luminosidadTest: "",
-        tipoPila: "4 Pilas AA",
+        tipoPila: "Pila 9V",
         duracionBateria: "2,5 horas",
-        operador: "Orange",
+        operador: "Desconocido",
         ledsEstado: false,
         ledsEstadoDetalle: "",
-        estanqueidad: "",
+        estanqueidad: "IP54",
         rangoTemperatura: "",
         tecnologia: "NB-IoT",
-        anioFinDatos: 2038,
+        anioFinDatos: "",
         alturaLeds: "3,5 cm",
-        homologacion: "IDIADA PC25060037",
+        homologacion: "IDIADA PC25060170",
         homologacionTipo: "IDIADA",
         moduloGNSS: "",
         antenaGNSS: "",
         moduloNAD: "",
         antena5G: "",
         bandas: "",
-        notas: "ATENCIÓN: producto no disponible en Amazon actualmente. Enlace caído.",
-        rating: 3.9,
-        reviews: 320,
-        imagen: ""
+        notas: "",
+        rating: 4.5,
+        reviews: 658,
+        imagen: "https://m.media-amazon.com/images/I/71+E+jQvKxL._AC_SL1500_.jpg"
       },
       {
         id: "hv16-1",
@@ -640,14 +708,14 @@
         notas: "",
         rating: 4.5,
         reviews: 361,
-        imagen: ""
+        imagen: "https://m.media-amazon.com/images/I/71NECaldWGL._AC_SL1500_.jpg"
       },
       {
         id: "safety-light-pro",
         modelo: "Safety Light Pro",
         marca: "ISSE",
         link: "https://amzn.to/3LFKUAv",
-        precio: 28.97,
+        precio: 27.05,
         precioTachado: 33.80,
         luminosidadDeclarada: "Desconocido",
         luminosidadTest: "",
@@ -671,7 +739,7 @@
         notas: "Empresa china. Tres leds para conocer el estado de Batería, GNSS y conexión DGT.",
         rating: 4.4,
         reviews: 1248,
-        imagen: ""
+        imagen: "https://m.media-amazon.com/images/I/71A+Sqzrw0L._AC_SL1500_.jpg"
       }
     ];
     (function(){
@@ -690,13 +758,13 @@
       function renderHero(){
         let tieHtml = '';
         if(ties.length){
-          tieHtml = '<div class="tie-row">🥈 <strong>Mismo precio:</strong> '+
+          tieHtml = '<div class="tie-row"><strong>Mismo precio:</strong> '+
             ties.map(t => `<span>${t.modelo} (${t.marca}) <a href="${t.link}" target="_blank" rel="nofollow sponsored" class="tie-link">Ver en Amazon →</a></span>`).join('&nbsp;&nbsp;')+
             '</div>';
         }
 
         const imgHtml = cheapest.imagen
-          ? `<img src="${cheapest.imagen}" alt="${cheapest.modelo}" loading="lazy" />`
+          ? `<img src="${cheapest.imagen}" alt="Baliza V16 ${cheapest.modelo} de ${cheapest.marca} — la más barata" width="1500" height="1500" loading="lazy" />`
           : `<span>${cheapest.marca}<br>sin imagen</span>`;
 
         return `
@@ -709,14 +777,14 @@
                 <div class="brand">${cheapest.marca}</div>
                 <div class="hero-price">${fmtPrice(cheapest.precio)}</div>
                 <div class="hero-specs">
-                  <span class="hero-spec">✅ ${cheapest.homologacionTipo}</span>
-                  <span class="hero-spec">📡 ${cheapest.tecnologia}</span>
-                  <span class="hero-spec">🔋 ${cheapest.duracionBateria}</span>
-                  <span class="hero-spec">📱 ${cheapest.operador}</span>
-                  ${cheapest.estanqueidad ? `<span class="hero-spec">💧 ${cheapest.estanqueidad}</span>`:''}
-                  <span class="hero-spec">⭐ ${cheapest.rating}/5 (${cheapest.reviews})</span>
+                  <span class="hero-spec">${cheapest.homologacionTipo}</span>
+                  <span class="hero-spec">${cheapest.tecnologia}</span>
+                  <span class="hero-spec">${cheapest.duracionBateria}</span>
+                  <span class="hero-spec">${cheapest.operador}</span>
+                  ${cheapest.estanqueidad ? `<span class="hero-spec">${cheapest.estanqueidad}</span>`:''}
+                  <span class="hero-spec">${cheapest.rating}/5 (${cheapest.reviews})</span>
                 </div>
-                <a href="${cheapest.link}" target="_blank" rel="nofollow sponsored" class="hero-cta">🛒 COMPRAR EN AMAZON →</a>
+                <a href="${cheapest.link}" target="_blank" rel="nofollow sponsored" class="hero-cta">Comprar en Amazon →</a>
               </div>
             </div>
           </section>
@@ -746,7 +814,7 @@
           : '';
 
         const imgHtml = b.imagen
-          ? `<img src="${b.imagen}" alt="${b.modelo}" loading="lazy" />`
+          ? `<img src="${b.imagen}" alt="Baliza V16 homologada DGT ${b.modelo} de ${b.marca}" width="1500" height="1500" loading="lazy" />`
           : `<span>${b.marca}</span>`;
 
         const details = [];
@@ -763,7 +831,7 @@
         if(hasVal(b.notas)) details.push(`<li><span class="spec-label">Notas</span><span class="spec-value">${b.notas}</span></li>`);
 
         const detailsHtml = details.length
-          ? `<button class="card-toggle" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'🔽 Ocultar ficha técnica':'🔍 Ver ficha técnica'">🔍 Ver ficha técnica</button>
+          ? `<button class="card-toggle" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Ocultar ficha técnica':'Ver ficha técnica'">Ver ficha técnica</button>
              <div class="card-details"><ul class="spec-list">${details.join('')}</ul></div>`
           : '';
 
@@ -782,18 +850,18 @@
             </div>
             <div class="card-body">
               <ul class="spec-list">
-                <li><span class="spec-label">Homologación</span><span class="badge badge-ok">✅ ${b.homologacionTipo}</span></li>
+                <li><span class="spec-label">Homologación</span><span class="badge badge-ok">${b.homologacionTipo}</span></li>
                 <li><span class="spec-label">Tecnología</span><span class="spec-value">${b.tecnologia}</span></li>
                 <li><span class="spec-label">Batería</span><span class="spec-value">${b.duracionBateria} · ${b.tipoPila}</span></li>
                 <li><span class="spec-label">Operador</span><span class="spec-value">${b.operador}</span></li>
-                <li><span class="spec-label">LEDs estado</span><span class="spec-value">${b.ledsEstado ? b.ledsEstado : '❌ No'}</span></li>
+                 <li><span class="spec-label">LEDs estado</span><span class="spec-value">${b.ledsEstado ? b.ledsEstado : 'No'}</span></li>
                 ${b.estanqueidad ? `<li><span class="spec-label">Estanqueidad</span><span class="spec-value">${b.estanqueidad}</span></li>` : ''}
               </ul>
               ${detailsHtml}
             </div>
             <div class="card-footer">
               ${starsHtml}
-              <a href="${b.link}" target="_blank" rel="nofollow sponsored" class="btn-buy">🛒 Ver en Amazon</a>
+              <a href="${b.link}" target="_blank" rel="nofollow sponsored" class="btn-buy">Ver en Amazon</a>
             </div>
           </div>
         `;
@@ -802,7 +870,7 @@
       function renderSummaryTable(beacons){
         return `
           <div class="summary-section">
-            <h3>📊 Tabla comparativa completa</h3>
+            <h3>Tabla comparativa completa</h3>
             <div class="table-wrap">
               <table>
                 <thead>
@@ -834,8 +902,8 @@
                       <td>${b.ledsEstado || 'No'}</td>
                       <td>${b.estanqueidad || '-'}</td>
                       <td>${b.moduloGNSS || '-'}</td>
-                      <td>⭐ ${b.rating}/5</td>
-                      <td><a href="${b.link}" target="_blank" rel="nofollow sponsored" class="pbtn" style="font-size:.7rem;text-decoration:none">Amazon →</a></td>
+                      <td>${b.rating}/5</td>
+                      <td><a href="${b.link}" target="_blank" rel="nofollow sponsored" style="color:#0b72b5;font-weight:600;font-size:.75rem;text-decoration:none;white-space:nowrap">Amazon →</a></td>
                     </tr>
                   `).join('')}
                 </tbody>
@@ -843,6 +911,65 @@
             </div>
           </div>
         `;
+      }
+
+      function renderJSONLD(beacons){
+        const existing = document.querySelectorAll('script[type="application/ld+json"].dynamic-ld');
+        existing.forEach(el => el.remove());
+
+        const schemas = [];
+
+        schemas.push({
+          "@context":"https://schema.org",
+          "@type":"WebSite",
+          "name":"Comparador de Balizas V16",
+          "url":"https://comparadorbalizav16.es/",
+          "description":"Comparativa de balizas V16 homologadas por la DGT. Precios actualizados, especificaciones y enlaces de compra en Amazon.",
+          "inLanguage":"es",
+          "potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://comparadorbalizav16.es/?q={search_term_string}"},"query-input":"required name=search_term_string"}
+        });
+
+        schemas.push({
+          "@context":"https://schema.org",
+          "@type":"Organization",
+          "name":"insidebits",
+          "url":"https://comparadorbalizav16.es/",
+          "description":"Comparador de balizas V16 homologadas DGT con precios actualizados y enlaces de compra."
+        });
+
+        schemas.push({
+          "@context":"https://schema.org",
+          "@type":"ItemList",
+          "name":"Balizas V16 homologadas DGT",
+          "numberOfItems":beacons.length,
+          "itemListElement":beacons.map((b,i)=>({
+            "@type":"ListItem",
+            "position":i+1,
+            "item":{
+              "@type":"Product",
+              "name":b.modelo,
+              "description":`Baliza V16 ${b.modelo} de ${b.marca} — Homologación ${b.homologacionTipo}, tecnología ${b.tecnologia}, ${b.duracionBateria} de autonomía con ${b.tipoPila}.`,
+              "image":b.imagen || undefined,
+              "brand":{"@type":"Brand","name":b.marca},
+              "offers":{
+                "@type":"Offer",
+                "price":b.precio.toFixed(2),
+                "priceCurrency":"EUR",
+                "availability":"https://schema.org/InStock",
+                "url":b.link
+              },
+              "aggregateRating":b.rating?{"@type":"AggregateRating","ratingValue":b.rating.toString(),"reviewCount":b.reviews.toString(),"bestRating":"5"}:undefined
+            }
+          }))
+        });
+
+        schemas.forEach(data => {
+          const script = document.createElement('script');
+          script.type = 'application/ld+json';
+          script.className = 'dynamic-ld';
+          script.textContent = JSON.stringify(data);
+          document.head.appendChild(script);
+        });
       }
 
       function filterBeacons(){
@@ -855,6 +982,7 @@
 
       function render(){
         const filtered = filterBeacons();
+        renderJSONLD(filtered);
         const cards = filtered.map(renderCard).join('');
         app.innerHTML = `
           ${renderHero()}
