@@ -754,7 +754,7 @@
 
       /* ── Fetch live prices from prices.json ── */
       try {
-        const resp = await fetch('prices.json');
+        const resp = await fetch('prices.json', {cache: 'no-cache'});
         if(resp.ok){
           const data = await resp.json();
           if(data.products){
