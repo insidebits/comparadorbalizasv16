@@ -9,10 +9,13 @@ No external dependencies – uses only Python stdlib (urllib, re, json).
 
 import json
 import os
+import random
 import re
 import sys
+import time
 import urllib.request
 from datetime import datetime, timezone
+from http.cookiejar import CookieJar
 
 # ── ASIN mapping (must match BEACONS 'id' in index.html) ──
 ASINS = {
@@ -24,23 +27,43 @@ ASINS = {
     "safety-light-pro":  "B0FDBBXHDY",
 }
 
+USER_AGENTS = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0",
+]
+
 HEADERS = {
-    "User-Agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/125.0.0.0 Safari/537.36"
-    ),
-    "Accept-Language": "es-ES,es;q=0.9",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "es-ES,es;q=0.9,en;q=0.8",
+    "Connection": "keep-alive",
 }
 
+# Cookie jar shared across requests to maintain session
+COOKIE_JAR = CookieJar()
 
-def fetch_html(asin):
-    url = f"https://www.amazon.es/dp/{asin}"
-    req = urllib.request.Request(url, headers=HEADERS)
+# Build opener once – cookies persist across requests
+_OPENER = urllib.request.build_opener(
+    urllib.request.HTTPCookieProcessor(COOKIE_JAR),
+    urllib.request.HTTPSHandler(),
+)
+
+
+def fetch_url(url, referer=None):
+    """Fetch a URL with browser-like headers and cookie session."""
+    headers = dict(HEADERS)
+    headers["User-Agent"] = random.choice(USER_AGENTS)
+    if referer:
+        headers["Referer"] = referer
+
+    req = urllib.request.Request(url, headers=headers)
     try:
-        with urllib.request.urlopen(req, timeout=15) as resp:
+        with _OPENER.open(req, timeout=20) as resp:
             raw = resp.read()
-            # Try UTF-8 first, fall back to latin-1
+            if resp.headers.get("Content-Encoding") == "gzip":
+                import gzip
+                raw = gzip.decompress(raw)
             try:
                 return raw.decode("utf-8")
             except UnicodeDecodeError:
@@ -50,8 +73,48 @@ def fetch_html(asin):
         return None
 
 
-def scrape_product(asin):
-    html = fetch_html(asin)
+def establish_session():
+    """Visit Amazon.es homepage first to get session cookies before scraping."""
+    print("  Estableciendo sesion con Amazon.es ...", end=" ", flush=True)
+    html = fetch_url("https://www.amazon.es/")
+    if html and len(html) > 10000:
+        print("OK")
+        return True
+    print("fallo (sesión sin cookies)")
+    return False
+
+
+def is_blocked(html):
+    """Detect whether Amazon returned a bot/CAPTCHA page instead of a product page."""
+    if html is None or len(html) < 10000:
+        return True
+    # Explicit Amazon bot-detection signals
+    if 'Type the characters you see' in html:
+        return True
+    if 'Robot Check' in html:
+        return True
+    if '<form method="get" action="/errors/validateCaptcha' in html:
+        return True
+    if 'api-services-support@amazon.com' in html and 'automated data access' in html:
+        return True
+    return False
+
+
+def scrape_product(asin, referer="https://www.amazon.es/"):
+    """Scrape a single product page. Returns dict or None."""
+    url = f"https://www.amazon.es/dp/{asin}"
+    html = fetch_url(url, referer=referer)
+
+    # If blocked, retry once after a delay
+    if is_blocked(html):
+        print("    -> Amazon CAPTCHA / bot detection, reintentando ...")
+        time.sleep(random.uniform(5, 10))
+        html = fetch_url(url, referer=referer)
+
+    if is_blocked(html):
+        print("    -> bloqueo persistente de Amazon")
+        return None
+
     if not html:
         return None
 
@@ -117,11 +180,13 @@ def scrape_product(asin):
 
 
 def main():
-    # Work relative to script location
     script_dir = os.path.dirname(os.path.abspath(__file__))
     os.chdir(script_dir)
 
     print(f"[{datetime.now(timezone.utc).isoformat()}] Scraping Amazon.es ...")
+
+    # Establish session with cookies from homepage
+    establish_session()
 
     # Load existing prices.json (or start fresh)
     try:
@@ -134,18 +199,26 @@ def main():
         data["products"] = {}
 
     changed = False
+    success_count = 0
+    pids = list(ASINS.items())
 
-    for pid, asin in ASINS.items():
+    for i, (pid, asin) in enumerate(pids):
+        # Delay between requests (3-7s) to avoid rate-limiting
+        if i > 0:
+            delay = random.uniform(3.0, 7.0)
+            time.sleep(delay)
+
         print(f"\n  {pid}  ({asin})")
         info = scrape_product(asin)
         if not info:
             print("    -> sin datos (producto no disponible?)")
             continue
 
+        success_count += 1
+
         old = data["products"].get(pid, {})
         merged = dict(old)
 
-        # Merge: override old with new, but preserve precioTachado if not found
         for key in ["precio", "rating", "reviews"]:
             if key in info:
                 merged[key] = info[key]
@@ -162,15 +235,19 @@ def main():
 
         data["products"][pid] = merged
 
+    if success_count == 0:
+        print("\n::error::NINGUN producto scrapeado – probable bloqueo de Amazon")
+        sys.exit(1)
+
     if changed:
         data["updated"] = datetime.now(timezone.utc).isoformat()
         data["source"] = "Amazon.es scraping"
         with open("prices.json", "w") as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
-        print(f"\n  OK prices.json actualizado ({data['updated']})")
+        print(f"\n  OK prices.json actualizado ({data['updated']}) ({success_count}/{len(pids)} productos)")
         print("::notice::prices.json updated")
     else:
-        print("\n  Sin cambios – no se modifica prices.json")
+        print(f"\n  Sin cambios ({success_count}/{len(pids)} productos scrapeados)")
 
     sys.exit(0)
 
