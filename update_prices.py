@@ -120,19 +120,52 @@ def scrape_product(asin, referer="https://www.amazon.es/"):
 
     info = {}
 
-    # ── Price (a-price-whole + a-price-fraction) ──
-    whole = re.search(r'<span class="a-price-whole">([^<]+)', html)
-    if whole:
-        frac = re.search(r'<span class="a-price-fraction">([^<]+)', html)
-        raw = whole.group(1).replace(",", ".").replace(".", "")
+    # ── Isolate main price section to avoid "Other Sellers" prices ──
+    price_section = html
+    for container_id in ["corePrice_desktop", "corePriceDisplay_desktop_feature_div",
+                          "apex_desktop", "corePrice_feature_div"]:
+        m = re.search(
+            rf'<div[^>]*id="{container_id}"[^>]*>(.*?)</div>\s*<(?:div|script|span)',
+            html, re.DOTALL
+        )
+        if m:
+            price_section = m.group(1)
+            break
+
+    # ── Price (prefer a-offscreen which always has the full number) ──
+    offscreen = re.search(
+        r'<span class="a-offscreen"[^>]*>\s*EUR?\s*([\d.,]+)\s*€?\s*</span>',
+        price_section
+    )
+    if not offscreen:
+        offscreen = re.search(
+            r'<span class="a-offscreen"[^>]*>\s*([\d.,]+)\s*€\s*</span>',
+            html
+        )
+    if offscreen:
+        raw = offscreen.group(1)
+        # Spanish: "24,71" -> 24.71; "1.234,56" -> 1234.56
+        # Remove thousand separators, then convert decimal comma
+        raw_no_dots = raw.replace(".", "")
+        raw_final = raw_no_dots.replace(",", ".")
         try:
-            # If the raw value still has a dot as thousands separator, handle it
-            val = float(raw)
-            if frac:
-                val += float(frac.group(1)) / 100.0
-            info["precio"] = round(val, 2)
+            info["precio"] = round(float(raw_final), 2)
         except ValueError:
             pass
+
+    if "precio" not in info:
+        # Fallback: a-price-whole + a-price-fraction
+        whole = re.search(r'<span class="a-price-whole">([^<]+)', price_section)
+        if whole:
+            frac = re.search(r'<span class="a-price-fraction">([^<]+)', price_section)
+            raw = whole.group(1).replace(",", ".").replace(".", "")
+            try:
+                val = float(raw)
+                if frac:
+                    val += float(frac.group(1)) / 100.0
+                info["precio"] = round(val, 2)
+            except ValueError:
+                pass
 
     # ── Strikethrough price ──
     # Try several patterns since Amazon varies the markup
