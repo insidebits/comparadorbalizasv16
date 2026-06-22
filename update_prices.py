@@ -120,13 +120,26 @@ def scrape_product(asin, referer="https://www.amazon.es/"):
 
     info = {}
 
+    # ── Isolate main price section to avoid "Other Sellers" prices ──
+    price_section = html
+    for container_id in ["corePrice_desktop", "corePriceDisplay_desktop_feature_div",
+                          "apex_desktop", "corePrice_feature_div"]:
+        m = re.search(
+            rf'<div[^>]*id="{container_id}"[^>]*>(.*?)</div>\s*<(?:div|script|span)',
+            html, re.DOTALL
+        )
+        if m:
+            price_section = m.group(1)
+            break
+
     # ── Price (a-price-whole + a-price-fraction) ──
-    whole = re.search(r'<span class="a-price-whole">([^<]+)', html)
+    whole = re.search(r'<span class="a-price-whole">([^<]+)', price_section)
+    if not whole:
+        whole = re.search(r'<span class="a-price-whole">([^<]+)', html)
     if whole:
-        frac = re.search(r'<span class="a-price-fraction">([^<]+)', html)
+        frac = re.search(r'<span class="a-price-fraction">([^<]+)', price_section)
         raw = whole.group(1).replace(",", ".").replace(".", "")
         try:
-            # If the raw value still has a dot as thousands separator, handle it
             val = float(raw)
             if frac:
                 val += float(frac.group(1)) / 100.0
