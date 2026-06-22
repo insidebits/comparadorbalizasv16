@@ -40,6 +40,10 @@ HEADERS = {
     "Connection": "keep-alive",
 }
 
+# Price plausibility: V16 beacons cost 10-60 EUR
+MIN_PRICE = 8.0
+MAX_PRICE = 80.0
+
 # Cookie jar shared across requests to maintain session
 COOKIE_JAR = CookieJar()
 
@@ -119,6 +123,7 @@ def scrape_product(asin, referer="https://www.amazon.es/"):
         return None
 
     info = {}
+    used_core_price = False
 
     # ── Isolate main price section to avoid "Other Sellers" prices ──
     price_section = html
@@ -130,22 +135,52 @@ def scrape_product(asin, referer="https://www.amazon.es/"):
         )
         if m:
             price_section = m.group(1)
+            used_core_price = True
             break
 
-    # ── Price (a-price-whole + a-price-fraction) ──
-    whole = re.search(r'<span class="a-price-whole">([^<]+)', price_section)
-    if not whole:
-        whole = re.search(r'<span class="a-price-whole">([^<]+)', html)
-    if whole:
-        frac = re.search(r'<span class="a-price-fraction">([^<]+)', price_section)
+    if not used_core_price:
+        print("    -> AVISO: corePrice no encontrado, usando pagina entera")
+
+    # ── Extract price from corePrice section ──
+    def extract_price(html_section):
+        """Extract price from a-price-whole + a-price-fraction. Returns float or None."""
+        whole = re.search(r'<span class="a-price-whole">([^<]+)', html_section)
+        if not whole:
+            return None
+        frac = re.search(r'<span class="a-price-fraction">([^<]+)', html_section)
         raw = whole.group(1).replace(",", ".").replace(".", "")
         try:
             val = float(raw)
             if frac:
                 val += float(frac.group(1)) / 100.0
-            info["precio"] = round(val, 2)
+            return round(val, 2)
         except ValueError:
-            pass
+            return None
+
+    core_price = extract_price(price_section)
+    fallback_price = None if used_core_price else None
+    if not used_core_price:
+        # If no corePrice container found, price_section IS the whole page
+        core_price = extract_price(html)
+    elif core_price is None:
+        # corePrice found but no price inside it – fall back to whole page
+        print("    -> AVISO: sin precio en corePrice, usando pagina entera")
+        core_price = extract_price(html)
+    else:
+        # Compare with whole-page price to detect discrepancies
+        fallback_price = extract_price(html)
+        if fallback_price and abs(core_price - fallback_price) > 0.5:
+            print(f"    -> AVISO: corePrice={core_price}€ vs pagina={fallback_price}€ (otros vendedores?)")
+
+    price = core_price
+
+    # Validate price range
+    if price is not None and (price < MIN_PRICE or price > MAX_PRICE):
+        print(f"    -> AVISO: precio {price}€ fuera de rango ({MIN_PRICE}-{MAX_PRICE}), ignorado")
+        price = None
+
+    if price is not None:
+        info["precio"] = price
 
     # ── Strikethrough price ──
     # Try several patterns since Amazon varies the markup
@@ -230,6 +265,16 @@ def main():
         success_count += 1
 
         old = data["products"].get(pid, {})
+        old_price = old.get("precio")
+
+        # Reject extreme price jumps (>50% change) as likely scraping errors
+        if old_price and "precio" in info:
+            change_pct = abs(info["precio"] - old_price) / old_price
+            if change_pct > 0.5:
+                print(f"    -> AVISO: salto de precio >50% ({old_price}->{info['precio']}), ignorado")
+                info.pop("precio", None)
+                info.pop("precioTachado", None)
+
         merged = dict(old)
 
         for key in ["precio", "rating", "reviews"]:
