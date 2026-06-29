@@ -191,7 +191,9 @@ def scrape_product(asin, referer="https://www.amazon.es/"):
     # ── Isolate main price section to avoid "Other Sellers" prices ──
     price_section = html
     for container_id in ["corePrice_desktop", "corePriceDisplay_desktop_feature_div",
-                          "apex_desktop", "corePrice_feature_div"]:
+                          "corePriceDisplay_mobile", "corePriceDisplay_mobile_feature_div",
+                          "apex_desktop", "apex_mobile",
+                          "corePrice_feature_div"]:
         m = re.search(
             rf'<div[^>]*id="{container_id}"[^>]*>(.*?)</div>\s*<(?:div|script|span)',
             html, re.DOTALL
@@ -202,11 +204,34 @@ def scrape_product(asin, referer="https://www.amazon.es/"):
             break
 
     if not used_core_price:
-        print("    -> AVISO: corePrice no encontrado, usando pagina entera")
+        print("    -> AVISO: corePrice no encontrado, usando priceToPay")
 
-    # ── Extract price from corePrice section ──
+    # ── Extract price ──
     def extract_price(html_section):
-        """Extract price from a-price-whole + a-price-fraction. Returns float or None."""
+        """Extract the main (Add-to-Cart) price. Returns float or None.
+
+        Primary strategy: the 'priceToPay' / 'apex-pricetopay-value' class
+        marks the real buy-box price on both desktop and mobile pages.
+        'Other Sellers' prices lack these classes, so this avoids them.
+
+        Fallback: first a-price-whole + a-price-fraction in the section.
+        """
+        # Primary: price within the priceToPay / apex-pricetopay-value span
+        m = re.search(
+            r'class="[^"]*(?:apex-pricetopay-value|priceToPay)[^"]*".*?'
+            r'<span class="a-price-whole">([^<]+).*?'
+            r'<span class="a-price-fraction">([^<]+)',
+            html_section, re.DOTALL
+        )
+        if m:
+            try:
+                whole = m.group(1).replace(",", ".").replace(".", "")
+                val = float(whole) + float(m.group(2)) / 100.0
+                return round(val, 2)
+            except ValueError:
+                pass
+
+        # Fallback: first a-price-whole + a-price-fraction
         whole = re.search(r'<span class="a-price-whole">([^<]+)', html_section)
         if not whole:
             return None
