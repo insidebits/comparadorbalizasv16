@@ -34,10 +34,40 @@ USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0",
 ]
 
+# Mobile UAs – used as fallback when desktop requests get CAPTCHA/bot-blocked.
+# Amazon applies less aggressive bot filtering to mobile clients, and serves a
+# lighter page whose price markup reuses the same a-price-whole/fraction spans.
+MOBILE_USER_AGENTS = [
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1",
+    "Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 18_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/131.0.6778.73 Mobile/15E148 Safari/604.1",
+]
+
 HEADERS = {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     "Accept-Language": "es-ES,es;q=0.9,en;q=0.8",
     "Connection": "keep-alive",
+    "Upgrade-Insecure-Requests": "1",
+}
+
+# sec-fetch-* / sec-ch-ua headers that real Chrome desktop browsers send.
+# Amazon's bot detection flags requests missing these as non-browser.
+DESKTOP_SEC_HEADERS = {
+    "sec-fetch-dest": "document",
+    "sec-fetch-mode": "navigate",
+    "sec-fetch-site": "same-origin",
+    "sec-fetch-user": "?1",
+    "sec-ch-ua": '"Chromium";v="131", "Not_A Brand";v="24", "Google Chrome";v="131"',
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": '"Windows"',
+}
+
+# Mobile Safari does NOT send sec-ch-ua; only sec-fetch-*.
+MOBILE_SEC_HEADERS = {
+    "sec-fetch-dest": "document",
+    "sec-fetch-mode": "navigate",
+    "sec-fetch-site": "same-origin",
+    "sec-fetch-user": "?1",
 }
 
 # Price plausibility: V16 beacons cost 10-60 EUR
@@ -54,10 +84,17 @@ _OPENER = urllib.request.build_opener(
 )
 
 
-def fetch_url(url, referer=None):
-    """Fetch a URL with browser-like headers and cookie session."""
+def fetch_url(url, referer=None, mobile=False):
+    """Fetch a URL with browser-like headers and cookie session.
+
+    If mobile=True, send a mobile User-Agent so Amazon serves the mobile
+    product page (used as a fallback when desktop requests are blocked).
+    """
     headers = dict(HEADERS)
-    headers["User-Agent"] = random.choice(USER_AGENTS)
+    headers["User-Agent"] = random.choice(
+        MOBILE_USER_AGENTS if mobile else USER_AGENTS
+    )
+    headers.update(MOBILE_SEC_HEADERS if mobile else DESKTOP_SEC_HEADERS)
     if referer:
         headers["Referer"] = referer
 
@@ -105,13 +142,39 @@ def is_blocked(html):
 
 
 def scrape_product(asin, referer="https://www.amazon.es/"):
-    """Scrape a single product page. Returns dict or None."""
+    """Scrape a single product page. Returns dict or None.
+
+    Fallback chain (each tier only triggers if the previous was blocked):
+      1. Desktop UA on /dp/{ASIN}        – canonical product page
+      2. Mobile UA on /dp/{ASIN}         – mobile-formatted desktop page
+      3. Mobile UA on /gp/aw/d/{ASIN}    – legacy mobile endpoint, least
+                                           aggressively bot-filtered
+      4. Final desktop retry after delay – shake off transient rate-limiting
+
+    All tiers serve prices using the shared a-price-whole/fraction spans,
+    so a single extract_price() handles every variant.
+    """
     url = f"https://www.amazon.es/dp/{asin}"
+    mobile_url = f"https://www.amazon.es/gp/aw/d/{asin}"
+
+    # Tier 1: desktop
     html = fetch_url(url, referer=referer)
 
-    # If blocked, retry once after a delay
+    # Tier 2: mobile UA on /dp/
     if is_blocked(html):
-        print("    -> Amazon CAPTCHA / bot detection, reintentando ...")
+        print("    -> desktop bloqueado, reintentando con UA móvil (/dp/) ...")
+        time.sleep(random.uniform(2, 4))
+        html = fetch_url(url, referer=referer, mobile=True)
+
+    # Tier 3: mobile UA on /gp/aw/d/ (legacy mobile endpoint)
+    if is_blocked(html):
+        print("    -> /dp/ móvil bloqueado, probando endpoint móvil /gp/aw/d/ ...")
+        time.sleep(random.uniform(2, 4))
+        html = fetch_url(mobile_url, referer=referer, mobile=True)
+
+    # Tier 4: final desktop retry after longer delay
+    if is_blocked(html):
+        print("    -> endpoint móvil bloqueado, último reintento desktop ...")
         time.sleep(random.uniform(5, 10))
         html = fetch_url(url, referer=referer)
 
