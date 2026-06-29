@@ -83,6 +83,42 @@ _OPENER = urllib.request.build_opener(
     urllib.request.HTTPSHandler(),
 )
 
+# Spanish IP used in X-Forwarded-For header to hint Amazon at the correct
+# geo-location. Amazon primarily uses the TCP connection IP, but some edge
+# nodes may honour X-Forwarded-For for marketplace/seller selection.
+SPANISH_IP_HINT = "2.136.200.136"
+
+# Pre-seeded cookies that mark the session as Spanish (es_ES) with EUR
+# currency. Without these, a US-based IP visiting Amazon.es may get prices
+# from third-party "Other Sellers" that ship internationally instead of the
+# default Spanish buy-box price.
+SPANISH_COOKIES = {
+    "lc-acbes": "es_ES",       # language/country preference
+    "i18n-prefs": "EUR",       # currency preference
+}
+
+
+def seed_spanish_session():
+    """Pre-seed the cookie jar with Spanish locale/currency cookies so that
+    requests from non-Spanish IPs (e.g. GitHub Actions runners in the US)
+    are more likely to receive the Spanish buy-box price instead of prices
+    from "Other Sellers" that ship internationally.
+    """
+    from http.cookiejar import Cookie
+    far_future = 2_000_000_000  # ~year 2033
+    for name, value in SPANISH_COOKIES.items():
+        c = Cookie(
+            version=0, name=name, value=value,
+            port=None, port_specified=False,
+            domain=".amazon.es", domain_specified=True, domain_initial_dot=True,
+            path="/", path_specified=True,
+            secure=True, expires=far_future,
+            discard=False, comment=None, comment_url=None,
+            rest={}, rfc2109=False,
+        )
+        COOKIE_JAR.set_cookie(c)
+    print("  Sesion española pre-seed (lc-acbes=es_ES, i18n-prefs=EUR)")
+
 
 def fetch_url(url, referer=None, mobile=False):
     """Fetch a URL with browser-like headers and cookie session.
@@ -95,6 +131,8 @@ def fetch_url(url, referer=None, mobile=False):
         MOBILE_USER_AGENTS if mobile else USER_AGENTS
     )
     headers.update(MOBILE_SEC_HEADERS if mobile else DESKTOP_SEC_HEADERS)
+    # Hint Spanish geo-location so Amazon.es serves Spanish buy-box prices
+    headers["X-Forwarded-For"] = SPANISH_IP_HINT
     if referer:
         headers["Referer"] = referer
 
@@ -155,7 +193,7 @@ def scrape_product(asin, referer="https://www.amazon.es/"):
     so a single extract_price() handles every variant.
     """
     url = f"https://www.amazon.es/dp/{asin}"
-    mobile_url = f"https://www.amazon.es/gp/aw/d/{asin}"
+    mobile_url = f"https://www.amazon.es/gp/aw/d/{asin}?language=es_ES&currency=EUR"
 
     # Tier 1: desktop
     html = fetch_url(url, referer=referer)
@@ -320,6 +358,10 @@ def main():
     os.chdir(script_dir)
 
     print(f"[{datetime.now(timezone.utc).isoformat()}] Scraping Amazon.es ...")
+
+    # Pre-seed Spanish locale cookies so non-Spanish IPs get the Spanish
+    # buy-box price instead of third-party "Other Sellers" prices.
+    seed_spanish_session()
 
     # Establish session with cookies from homepage
     establish_session()
