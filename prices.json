@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-06T17:18:38.135700+00:00",
+  "updated": "2026-07-07T13:56:41.497865+00:00",
   "source": "Amazon.es scraping",
   "products": {
     "pf-led-one": {
@@ -27,13 +27,13 @@
       "reviews": 1758
     },
     "hv16-1": {
-      "precio": 28.4,
+      "precio": 29.16,
       "precioTachado": null,
       "rating": 4.5,
       "reviews": 368
     },
     "safety-light-pro": {
-      "precio": 19.48,
+      "precio": 20.4,
       "precioTachado": 27.93,
       "rating": 4.4,
       "reviews": 1290
