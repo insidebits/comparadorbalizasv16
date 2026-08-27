@@ -1,12 +1,12 @@
 {
-  "updated": "2026-08-26T06:35:52.031042+00:00",
+  "updated": "2026-08-27T17:11:53.704640+00:00",
   "source": "Amazon.es scraping",
   "products": {
     "pf-led-one": {
-      "precio": 18.01,
+      "precio": 15.44,
       "precioTachado": 24.71,
       "rating": 4.4,
-      "reviews": 1482
+      "reviews": 1485
     },
     "iot-v4": {
       "precio": 21.79,
@@ -33,7 +33,7 @@
       "reviews": 382
     },
     "safety-light-pro": {
-      "precio": 16.35,
+      "precio": 16.55,
       "precioTachado": 27.93,
       "rating": 4.4,
       "reviews": 1421
