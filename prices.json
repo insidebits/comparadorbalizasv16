@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T11:54:59.919911+00:00",
+  "updated": "2026-09-30T11:42:21.403594+00:00",
   "source": "Amazon.es scraping",
   "products": {
     "pf-led-one": {
@@ -12,19 +12,19 @@
       "precio": 12.5,
       "precioTachado": null,
       "rating": 4.5,
-      "reviews": 4135
+      "reviews": 4142
     },
     "osram-ledguardian": {
       "precio": 16.94,
       "precioTachado": null,
       "rating": 4.4,
-      "reviews": 1936
+      "reviews": 1941
     },
     "extrastar": {
       "precio": 10.99,
       "precioTachado": null,
       "rating": 4.5,
-      "reviews": 1925
+      "reviews": 1931
     },
     "hv16-1": {
       "precio": 8.23,
@@ -33,10 +33,10 @@
       "reviews": 397
     },
     "safety-light-pro": {
-      "precio": 12.4,
+      "precio": 12.8,
       "precioTachado": 27.93,
       "rating": 4.4,
-      "reviews": 1499
+      "reviews": 1503
     }
   }
 }
