@@ -1,18 +1,18 @@
 {
-  "updated": "2026-10-13T13:17:38.862373+00:00",
+  "updated": "2026-10-14T10:58:09.015160+00:00",
   "source": "Amazon.es scraping",
   "products": {
     "pf-led-one": {
-      "precio": 16.53,
+      "precio": 18.98,
       "precioTachado": null,
       "rating": 4.4,
-      "reviews": 1531
+      "reviews": 1532
     },
     "iot-v4": {
       "precio": 8.67,
       "precioTachado": null,
       "rating": 4.5,
-      "reviews": 4234
+      "reviews": 4233
     },
     "osram-ledguardian": {
       "precio": 11.88,
@@ -33,7 +33,7 @@
       "reviews": 403
     },
     "safety-light-pro": {
-      "precio": 16.53,
+      "precio": 18.98,
       "precioTachado": 27.93,
       "rating": 4.4,
       "reviews": 1532
