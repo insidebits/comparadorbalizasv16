@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T11:55:44.485567+00:00",
+  "updated": "2026-10-29T12:03:57.978356+00:00",
   "source": "Amazon.es scraping",
   "products": {
     "pf-led-one": {
@@ -12,22 +12,22 @@
       "precio": 11.98,
       "precioTachado": null,
       "rating": 4.5,
-      "reviews": 4317
+      "reviews": 4319
     },
     "osram-ledguardian": {
       "precio": 16.94,
       "precioTachado": null,
       "rating": 4.4,
-      "reviews": 2018
+      "reviews": 2022
     },
     "extrastar": {
-      "precio": 11.8,
+      "precio": 11.99,
       "precioTachado": null,
       "rating": 4.5,
-      "reviews": 2019
+      "reviews": 2024
     },
     "hv16-1": {
-      "precio": 10.14,
+      "precio": 9.6,
       "precioTachado": null,
       "rating": 4.6,
       "reviews": 406
