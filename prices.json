@@ -1,9 +1,9 @@
 {
-  "updated": "2026-11-14T12:48:27.548119+00:00",
+  "updated": "2026-11-15T13:15:44.628194+00:00",
   "source": "Amazon.es scraping",
   "products": {
     "pf-led-one": {
-      "precio": 18.17,
+      "precio": 9.99,
       "precioTachado": null,
       "rating": 4.4,
       "reviews": 1578
@@ -24,7 +24,7 @@
       "precio": 11.25,
       "precioTachado": null,
       "rating": 4.5,
-      "reviews": 2085
+      "reviews": 2086
     },
     "hv16-1": {
       "precio": 10.18,
@@ -36,7 +36,7 @@
       "precio": 10.45,
       "precioTachado": 14.93,
       "rating": 4.4,
-      "reviews": 1585
+      "reviews": 1586
     }
   }
 }
